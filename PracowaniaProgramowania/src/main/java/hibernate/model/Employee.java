@@ -26,7 +26,7 @@ public class Employee {
     @Column(name = "PESEL", nullable = false, unique = true)
     private int pesel;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="add_id", referencedColumnName = "id")
     Address address;
 
@@ -86,6 +86,7 @@ public class Employee {
         this.address = address;
     }
 
+    @org.jetbrains.annotations.NotNull
     public static Employee copyEmployee(Employee emp) {
         Employee person = new Employee();
         person.setAddress(emp.getAddress());

@@ -3,6 +3,8 @@ package hibernate;
 import hibernate.model.Address;
 import hibernate.model.Employee;
 import hibernate.queries.Queries;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +15,11 @@ import java.util.stream.IntStream;
 class Manager {
 
     public static void main(String[] args) {
+
+        Logger log = Logger.getLogger("name");
+        log.info("message");
+
+        BasicConfigurator.configure();
 
         System.out.println("Start");
 
@@ -55,6 +62,7 @@ class Manager {
                 System.out.println("Found " + employee);
             }
 
+            assert employee != null;
             System.out.println("Employee " + employee.getId() + " " + employee.getFirstName() + employee.getLastName());
 
             //User-defined query
@@ -74,19 +82,6 @@ class Manager {
             resultByPage = query.getAllEmployeeByPage(2);
             entityManager.getTransaction().commit();
 
-            //Illegal
-            entityManager.getTransaction().begin();
-            int id = employee.getId();
-            entityManager.remove(employee);
-            Employee emp2 = new Employee();
-            emp2.setId(id);
-            emp2.setFirstName("Marcin");
-            emp2.setLastName("Wito" + new Random().nextInt());
-            emp2.setSalary(100);
-            emp2.setPesel(new Random().nextInt());
-            entityManager.persist(emp2);
-            entityManager.getTransaction().commit();
-
             System.out.println("Done");
 
             entityManager.close();
@@ -97,7 +92,6 @@ class Manager {
         } finally {
             entityManagerFactory.close();
         }
-
     }
 
     static void getThemAll(EntityManager entityManager)  {

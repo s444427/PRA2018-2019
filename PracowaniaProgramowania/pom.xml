@@ -16,9 +16,10 @@
     <build>
         <resources>
             <resource>
-                <directory>src</directory>
+                <directory>src/main/resources/META-INF</directory>
+                <targetPath>META-INF</targetPath>
                 <includes>
-                    <include>META-INF/persistence.xml</include>
+                    <include>persistence.xml</include>
                 </includes>
             </resource>
         </resources>
@@ -115,6 +116,12 @@
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
